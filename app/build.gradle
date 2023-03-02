@@ -8,6 +8,14 @@ def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\amandaluz\\AndroidStudioProjects\\WallpaperApplication\\store\\wallpaper_appkey.jks')
+            storePassword '11111111'
+            keyAlias 'wallpaper_app'
+            keyPassword '11111111'
+        }
+    }
     namespace 'com.amandaluz.wallpaperapplication'
     compileSdk 33
 
@@ -25,8 +33,22 @@ android {
     }
 
     buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            debuggable true
+        }
+
+        staging {
+            initWith debug
+            minifyEnabled true
+            applicationIdSuffix '.staging'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', 'proguard-rules-staging.pro'
+        }
+
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.release
+            shrinkResources true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -36,6 +58,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
