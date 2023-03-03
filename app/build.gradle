@@ -15,7 +15,8 @@ apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\amandaluz\\AndroidStudioProjects\\WallpaperApplication\\store\\wallpaper_appkey.jks')
+            storeFile file('\\..\\store\\wallpapers_app_key.jks')
+            //storeFile file('C:\\Users\\amandaluz\\AndroidStudioProjects\\WallpaperApplication\\store\\wallpaper_appkey.jks')
             storePassword '11111111'
             keyAlias 'wallpaper_app'
             keyPassword '11111111'
