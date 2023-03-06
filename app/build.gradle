@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
 }
 
 apply plugin: 'kotlin-kapt'
@@ -15,7 +16,8 @@ apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\amandaluz\\AndroidStudioProjects\\WallpaperApplication\\store\\wallpaper_appkey.jks')
+            storeFile file('\\..\\store\\wallpapers_app_key.jks')
+            //storeFile file('C:\\Users\\amandaluz\\AndroidStudioProjects\\WallpaperApplication\\store\\wallpaper_appkey.jks')
             storePassword '11111111'
             keyAlias 'wallpaper_app'
             keyPassword '11111111'
@@ -70,12 +72,18 @@ android {
 }
 
 dependencies {
+
     implementation project(':core')
 
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // Import the Firebase BoM    
+    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
     //navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
@@ -97,6 +105,4 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
-
 }
