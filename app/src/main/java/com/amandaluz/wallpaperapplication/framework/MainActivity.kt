@@ -1,7 +1,8 @@
-package com.amandaluz.wallpaperapplication
+package com.amandaluz.wallpaperapplication.framework
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.amandaluz.wallpaperapplication.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState : Bundle?) {
