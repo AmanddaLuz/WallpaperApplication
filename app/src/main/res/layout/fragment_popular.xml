@@ -6,9 +6,8 @@
     android:background="@color/main_background"
     tools:context=".ui.fragments.popular.PopularFragment">
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_popupar"
+        android:id="@+id/rv_popular"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
