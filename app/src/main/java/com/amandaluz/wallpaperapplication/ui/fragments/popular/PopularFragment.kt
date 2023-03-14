@@ -10,11 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.amandaluz.core.module.PhotoDomain
 import com.amandaluz.wallpaperapplication.databinding.FragmentPopularBinding
 import com.amandaluz.wallpaperapplication.ui.fragments.adapter.photoadapter.PhotoAdapter
+import com.amandaluz.wallpaperapplication.ui.fragments.main.MainFragmentDirections
 import com.amandaluz.wallpaperapplication.ui.fragments.popular.viewmodel.PopularViewModel
 import com.amandaluz.wallpaperapplication.util.animationCancel
 import com.amandaluz.wallpaperapplication.util.pulseAnimation
@@ -83,5 +85,7 @@ class PopularFragment : Fragment() {
     }
 
     private fun detail(photoDomain : PhotoDomain) {
+        val data = arrayOf(photoDomain.srcDomain.original, photoDomain.description)
+        findNavController().navigate(MainFragmentDirections.actionMainFragmentToDownloadFragment(data))
     }
 }
