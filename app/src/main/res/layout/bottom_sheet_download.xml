@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/baseline_menu"
+        tools:ignore="ContentDescription" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/downLoad_from_net"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/main_selector"
+        android:drawableStart="@drawable/download_icon"
+        android:drawablePadding="70dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/actor"
+        android:gravity="start|center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/download_image"
+        android:textAllCaps="false"
+        android:textSize="12sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/set_as_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/main_selector"
+        android:drawableStart="@drawable/ic_baseline_wallpaper"
+        android:drawablePadding="70dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/actor"
+        android:gravity="start|center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/set_as_background"
+        android:textAllCaps="false"
+        android:textSize="12sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/set_as_lockscreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/main_selector"
+        android:drawableStart="@drawable/baseline_lock_open"
+        android:drawablePadding="70dp"
+        android:elevation="10dp"
+        android:fontFamily="@font/actor"
+        android:gravity="start|center_vertical"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@string/set_as_lockscreen"
+        android:textAllCaps="false"
+        android:textSize="12sp" />
+</androidx.appcompat.widget.LinearLayoutCompat>
