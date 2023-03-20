@@ -45,6 +45,14 @@ internal class PopularViewModelTest {
         Assert.assertNotNull(result.first())
     }
 
+    @Test(expected = RuntimeException::class)
+    fun `Should return an empty PagingData When an error occurred`() = runTest {
+        //Arrange
+        whenever(popularUseCase(any())).thenThrow(RuntimeException())
+
+        //Act
+        popularViewModel.popularWallpapers()}
+
     private fun getPagingDataMock() =
         PagingData.from(listOf(domain , domain , domain , domain , domain , domain))
 
