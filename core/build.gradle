@@ -9,6 +9,7 @@ java {
 }
 
 dependencies {
+    testImplementation project(':testing')
     // Retrofit
     api "com.squareup.retrofit2:retrofit:$retrofit_version"
     api "com.squareup.retrofit2:converter-gson:$retrofit_version"
@@ -24,5 +25,4 @@ dependencies {
     implementation "javax.inject:javax.inject:1"
     // Coroutines core
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-
 }
