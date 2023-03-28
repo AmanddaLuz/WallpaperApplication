@@ -4,9 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.amandaluz.core.module.PhotoDomain
-import com.amandaluz.wallpaperapplication.R
 import com.amandaluz.wallpaperapplication.databinding.ItemPhotoBinding
-import com.bumptech.glide.Glide
+import com.amandaluz.wallpaperapplication.ui.extensions.loadBlurredImageWithPlaceholder
 
 class PhotoViewHolder(
     itemPhotoBinding: ItemPhotoBinding ,
@@ -17,12 +16,16 @@ class PhotoViewHolder(
     private val name = itemPhotoBinding.name
 
     fun bind(photo: PhotoDomain) {
-        Glide.with(itemView.context)
-            .load(photo.srcDomain.original)
+        /*Glide.with(itemView.context)
+            .load(photo.srcDomain?.original)
             .centerCrop()
             .fallback(R.drawable.baseline_broken)
-            .into(image)
+            .into(image)*/
 
+        image.loadBlurredImageWithPlaceholder(
+            imageUrl = photo.srcDomain?.original,
+            placeholderColor = photo.avgColor
+        )
         name.text = photo.photographer
         itemView.setOnClickListener {
             photoCallback.invoke(photo)

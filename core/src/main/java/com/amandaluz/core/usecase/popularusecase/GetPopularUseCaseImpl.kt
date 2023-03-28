@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingData
 import com.amandaluz.core.data.PopularRepository
 import com.amandaluz.core.module.PhotoDomain
-import com.amandaluz.core.usecase.PagingUseCase
+import com.amandaluz.core.usecase.base.PagingUseCase
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

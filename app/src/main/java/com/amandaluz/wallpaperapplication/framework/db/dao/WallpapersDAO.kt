@@ -1,6 +1,7 @@
 package com.amandaluz.wallpaperapplication.framework.db.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.amandaluz.core.data.DBConstants
@@ -16,7 +17,7 @@ interface WallpapersDAO {
     @Query("SELECT * FROM ${DBConstants.PHOTO_TABLE_NAME}")
     fun getAllPhotos(): Flow<List<PhotoEntity>>
 
-    @Query("DELETE * FROM ${DBConstants.PHOTO_TABLE_NAME} WHERE id = :id")
-    suspend fun deletePhotoById(id: Int)
+    @Delete
+    suspend fun deletePhotoById(entity : PhotoEntity)
 
 }

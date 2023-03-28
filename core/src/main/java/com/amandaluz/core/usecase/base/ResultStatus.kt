@@ -1,4 +1,4 @@
-package com.amandaluz.core.usecase
+package com.amandaluz.core.usecase.base
 
 sealed class ResultStatus<out T> {
     object Loading: ResultStatus<Nothing>()
@@ -9,7 +9,7 @@ sealed class ResultStatus<out T> {
         return when(this){
             Loading -> "Loading..."
             is Success<*> -> "Success [data= $data]"
-            is Error-> "Success [data= $throwable]"
+            is Error -> "Success [data= $throwable]"
         }
     }
 }

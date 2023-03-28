@@ -17,9 +17,7 @@ class WallpapersFactory {
     private val photoDomain = PhotoDomain(
         description = "Free stock photo of agriculture, architecture, bright" ,
         avgColor = "#56543B" ,
-        height = 6240 ,
         id = 15575287 ,
-        liked = false ,
         photographer = "medinegurbet" ,
         photographerId = 21435626 ,
         photographerUrl = "https://www.pexels.com/@medinegurbet-21435626" ,
@@ -34,6 +32,5 @@ class WallpapersFactory {
             tiny = "https://images.pexels.com/photos/15575287/pexels-photo-15575287.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280"
         ) ,
         url = "https://www.pexels.com/photo/wood-summer-garden-house-15575287/" ,
-        width = 4160
     )
 }

@@ -85,7 +85,7 @@ class PopularFragment : Fragment() {
     }
 
     private fun detail(photoDomain : PhotoDomain) {
-        val data = arrayOf(photoDomain.srcDomain.original, photoDomain.description)
+        val data = arrayOf(photoDomain.srcDomain?.original, photoDomain.description)
         findNavController().navigate(MainFragmentDirections.actionMainFragmentToDownloadFragment(data))
     }
 }

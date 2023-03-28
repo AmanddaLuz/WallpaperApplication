@@ -1,4 +1,4 @@
-package com.amandaluz.core.usecase
+package com.amandaluz.core.usecase.base
 
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
@@ -11,7 +11,12 @@ abstract class UseCase<in P, R> {
         emit(doWork(params))
     }.catch { throwable ->        emit(ResultStatus.Error(throwable))
     }
-    protected abstract suspend fun doWork(params: P): ResultStatus<R>}
+    protected abstract suspend fun doWork(params: P): ResultStatus<R>
+}
 abstract class PagingUseCase<in P, R: Any> {
     operator fun invoke(params: P): Flow<PagingData<R>> = createFlowObservable(params)
     protected abstract fun createFlowObservable(params: P): Flow<PagingData<R>>}
+
+abstract class FlowUseCase<in P, R: Any> {
+    suspend operator fun invoke(params: P): Flow<R> = createFlowObservable(params)
+    protected abstract suspend fun createFlowObservable(params: P): Flow<R>}
