@@ -20,6 +20,8 @@ import com.amandaluz.wallpaperapplication.ui.fragments.main.MainFragmentDirectio
 import com.amandaluz.wallpaperapplication.ui.fragments.popular.viewmodel.PopularViewModel
 import com.amandaluz.wallpaperapplication.util.animationCancel
 import com.amandaluz.wallpaperapplication.util.pulseAnimation
+import com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -42,10 +44,30 @@ class PopularFragment : Fragment() {
         initAdapter()
         fetchWallpapers()
         observeLoadingState()
+        observerFavoriteUiState()
+    }
+
+    private fun observerFavoriteUiState() {
+        viewModel.favoriteUIState.observe(viewLifecycleOwner) { favoriteUiState ->
+            when (favoriteUiState) {
+                PopularViewModel.GalleryUIState.Loading -> 1
+
+                is PopularViewModel.GalleryUIState.GalleryPhoto -> {
+                    if (favoriteUiState.saved) favoriteItemMessage("item salvo")
+                    else favoriteItemMessage("erro ao salvar")
+                }
+            }
+        }
+    }
+
+    private fun favoriteItemMessage(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+            .setAnimationMode( ANIMATION_MODE_SLIDE)
+            .show()
     }
 
     private fun initAdapter() {
-        photoAdapter = PhotoAdapter(::detail)
+        photoAdapter = PhotoAdapter(::detail, ::insertData)
         val gridLayoutManager = GridLayoutManager(requireContext() , 3)
         with(binding.rvPopular) {
             scrollToPosition(0)
@@ -87,5 +109,9 @@ class PopularFragment : Fragment() {
     private fun detail(photoDomain : PhotoDomain) {
         val data = arrayOf(photoDomain.srcDomain?.original, photoDomain.description)
         findNavController().navigate(MainFragmentDirections.actionMainFragmentToDownloadFragment(data))
+    }
+
+    private fun insertData(photo: PhotoDomain){
+        viewModel.insertPhoto(photo)
     }
 }

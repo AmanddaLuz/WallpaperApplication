@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import com.amandaluz.core.module.PhotoDomain
 
 class PhotoAdapter(
-    private val photoCallback: ((photo: PhotoDomain) -> Unit) ,
+    private val clickCallback: ((photo: PhotoDomain) -> Unit) ,
+    private val longClickCallback: ((photo: PhotoDomain) -> Unit)
 ) : PagingDataAdapter<PhotoDomain, PhotoViewHolder>(differCallback) {
     override fun onBindViewHolder(holder: PhotoViewHolder , position: Int) {
         getItem(position)?.let {
@@ -15,7 +16,7 @@ class PhotoAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder =
-        PhotoViewHolder.create(parent , photoCallback)
+        PhotoViewHolder.create(parent , clickCallback, longClickCallback)
 
     companion object {
         private val differCallback = object : DiffUtil.ItemCallback<PhotoDomain>() {
