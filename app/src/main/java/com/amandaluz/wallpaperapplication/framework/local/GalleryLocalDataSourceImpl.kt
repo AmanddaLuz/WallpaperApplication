@@ -23,7 +23,8 @@ class GalleryLocalDataSourceImpl @Inject constructor(
     private fun PhotoDomain.toEntity() = PhotoEntity(
         id = this.id?: 0,
         photo = this.srcDomain?.original?: "",
+        smallPhoto = this.srcDomain?.small?: "",
         photographer = this.photographer?: "",
-        avgColor = this.avgColor?: ""
+        avgColor = this.avgColor?: "",
     )
 }

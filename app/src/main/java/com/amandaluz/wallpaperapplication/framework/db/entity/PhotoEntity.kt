@@ -11,6 +11,7 @@ data class PhotoEntity(
     @PrimaryKey
     val id : Int ,
     val photo : String,
+    val smallPhoto: String,
     val photographer: String,
     val avgColor: String
 )
@@ -21,7 +22,8 @@ fun List<PhotoEntity>.toPhotoDomain() = map{
         photographer = it.photographer,
         avgColor = it.avgColor,
         srcDomain = SrcDomain(
-            original = it.photo
+            original = it.photo,
+            small = it.smallPhoto
         )
     )
 }

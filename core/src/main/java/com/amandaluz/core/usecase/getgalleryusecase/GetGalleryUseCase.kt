@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 interface GetGalleryUseCase {
-    suspend operator fun invoke(params : Unit) : Flow<List<PhotoDomain>>
+    suspend operator fun invoke(params : Unit = Unit) : Flow<List<PhotoDomain>>
 }
 
 class GetGalleryUseCaseImpl @Inject constructor(

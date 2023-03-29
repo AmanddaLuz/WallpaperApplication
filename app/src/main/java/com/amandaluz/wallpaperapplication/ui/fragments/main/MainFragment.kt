@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.fragment.findNavController
+import com.amandaluz.wallpaperapplication.R
 import com.amandaluz.wallpaperapplication.databinding.FragmentMainBinding
 import com.amandaluz.wallpaperapplication.ui.fragments.categories.CategoriesFragment
 import com.amandaluz.wallpaperapplication.ui.fragments.collections.CollectionsFragment
@@ -34,6 +36,7 @@ class MainFragment : Fragment() {
         initToolbar()
         initViewPager()
         initTabLayout()
+        goToGallery()
     }
 
     private fun initTabLayout(){
@@ -43,7 +46,7 @@ class MainFragment : Fragment() {
     }
 
     private fun initToolbar(){
-        binding.toolbar.title = "Wallpapaers"
+        binding.toolbar.title = "Wallppapaers"
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
     }
 
@@ -54,4 +57,9 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun goToGallery(){
+        binding.fab.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_galleryFragment)
+        }
+    }
 }

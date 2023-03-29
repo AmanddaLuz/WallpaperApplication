@@ -14,4 +14,7 @@
     <string name="retry">retry</string>
     <string name="error_loading_more_try_again">Error when trying to load the next page. Try again</string>
     <string name="rest_screen">Ativar a função de tela de descanso</string>
+    <string name="yes">Sim</string>
+    <string name="no">No</string>
+    <string name="want_delete">deseja excluir?</string>
 </resources>

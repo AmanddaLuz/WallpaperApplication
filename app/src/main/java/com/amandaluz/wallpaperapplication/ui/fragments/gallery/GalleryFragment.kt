@@ -4,16 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import com.amandaluz.core.module.PhotoDomain
 import com.amandaluz.wallpaperapplication.databinding.FragmentGalleryBinding
+import com.amandaluz.wallpaperapplication.ui.fragments.adapter.galleryadapter.GalleryAdapter
 import com.amandaluz.wallpaperapplication.ui.fragments.gallery.viewmodel.GalleryViewModel
+import com.amandaluz.wallpaperapplication.util.CustomDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class GalleryFragment : Fragment() {
 
     private lateinit var binding : FragmentGalleryBinding
+    private lateinit var galleryAdapter : GalleryAdapter
     private val viewModel : GalleryViewModel by viewModels()
 
     override fun onCreateView(
@@ -26,6 +33,52 @@ class GalleryFragment : Fragment() {
 
     override fun onViewCreated(view : View , savedInstanceState : Bundle?) {
         super.onViewCreated(view , savedInstanceState)
+        initAdapter()
+        getAllPhotos()
+        backButton()
+    }
+
+    private fun getAllPhotos(){
+        viewModel.state.observe(viewLifecycleOwner){uiState->
+            when (uiState){
+                is GalleryViewModel.UiState.ShowGallery -> {
+                    galleryAdapter.submitList(uiState.photo)
+                }
+                is GalleryViewModel.UiState.EmptyGallery -> {
+                    galleryAdapter.submitList(emptyList())
+                }
+                GalleryViewModel.UiState.Error -> {
+                    Toast.makeText(requireContext(), "error", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    private fun initAdapter(){
+        galleryAdapter = GalleryAdapter(::detail, ::delete)
+        val gridLayout = GridLayoutManager(requireContext(), 3)
+        with(binding.galleryRv){
+            layoutManager = gridLayout
+            setHasFixedSize(true)
+            adapter = galleryAdapter
+        }
+    }
+
+    private fun detail(photoDomain : PhotoDomain){
+        val data = arrayOf(photoDomain.srcDomain?.original, photoDomain.description)
+        findNavController().navigate(GalleryFragmentDirections.actionGalleryFragmentToDownloadFragment(data))
+    }
+    private fun delete(photoDomain : PhotoDomain){
+        val dialog = CustomDialog(photoDomain){
+            viewModel.delete(photoDomain)
+        }
+        dialog.show(childFragmentManager, "DELETE_PHOTO")
+    }
+
+    private fun backButton(){
+        binding.backButton.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
 }
