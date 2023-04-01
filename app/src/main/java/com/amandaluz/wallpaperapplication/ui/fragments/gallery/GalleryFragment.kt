@@ -1,5 +1,6 @@
 package com.amandaluz.wallpaperapplication.ui.fragments.gallery
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +10,27 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.work.*
 import com.amandaluz.core.module.PhotoDomain
 import com.amandaluz.wallpaperapplication.databinding.FragmentGalleryBinding
+import com.amandaluz.wallpaperapplication.framework.workmanager.WallpaperWork
 import com.amandaluz.wallpaperapplication.ui.fragments.adapter.galleryadapter.GalleryAdapter
 import com.amandaluz.wallpaperapplication.ui.fragments.gallery.viewmodel.GalleryViewModel
 import com.amandaluz.wallpaperapplication.util.CustomDialog
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
+private const val WORK_NAME = "WALLPAPER_WORK"
 @AndroidEntryPoint
 class GalleryFragment : Fragment() {
 
     private lateinit var binding : FragmentGalleryBinding
     private lateinit var galleryAdapter : GalleryAdapter
+
+    @Inject
+    lateinit var workManager : WorkManager
+
     private val viewModel : GalleryViewModel by viewModels()
 
     override fun onCreateView(
@@ -36,6 +46,7 @@ class GalleryFragment : Fragment() {
         initAdapter()
         getAllPhotos()
         backButton()
+        startWorker(workManager)
     }
 
     private fun getAllPhotos(){
@@ -79,6 +90,24 @@ class GalleryFragment : Fragment() {
         binding.backButton.setOnClickListener {
             findNavController().popBackStack()
         }
+    }
+
+    @SuppressLint("InvalidPeriodicWorkRequestInterval")
+    private fun startWorker(workManager : WorkManager){
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val wallpaperWorker =
+            PeriodicWorkRequest.Builder(WallpaperWork::class.java, 1, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .build()
+
+        workManager.enqueueUniquePeriodicWork(WORK_NAME,ExistingPeriodicWorkPolicy.UPDATE, wallpaperWorker)
+    }
+
+    private fun cancelWorker(workManager : WorkManager){
+        workManager.cancelUniqueWork(WORK_NAME)
     }
 
 }
